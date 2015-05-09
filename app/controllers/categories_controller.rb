@@ -9,6 +9,7 @@ class CategoriesController < ApplicationController
   end
 
   def autofill_data
+    raise params.inspect
     categories = Category.order(:name).where("name like ?", "%#{params[:term]}%")
     render json: categories.map(&:name)
   end
@@ -17,7 +18,7 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @category }
     end
   end
@@ -26,7 +27,7 @@ class CategoriesController < ApplicationController
     @category = Category.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @category }
     end
   end
