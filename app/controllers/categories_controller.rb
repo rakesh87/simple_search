@@ -9,18 +9,9 @@ class CategoriesController < ApplicationController
   end
 
   def autofill_data
-    raise params.inspect
-    categories = Category.order(:name).where("name like ?", "%#{params[:term]}%")
+    search_param = params[:term]
+    categories = Category.where("name like ?", "%#{search_param.strip}%")
     render json: categories.map(&:name)
-  end
-
-  def show
-    @category = Category.find(params[:id])
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @category }
-    end
   end
 
   def new
@@ -32,8 +23,17 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def show
+    find_category
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @category }
+    end
+  end
+
   def edit
-    @category = Category.find(params[:id])
+    find_category
   end
 
   def create
@@ -51,7 +51,7 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    @category = Category.find(params[:id])
+    find_category
 
     respond_to do |format|
       if @category.update_attributes(params[:category])
@@ -65,12 +65,18 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    @category = Category.find(params[:id])
+    find_category
     @category.destroy
 
     respond_to do |format|
       format.html { redirect_to categories_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def find_category
+    @category = Category.find(params[:id])
   end
 end

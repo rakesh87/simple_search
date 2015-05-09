@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(:version => 20150509135914) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "categories", ["name"], :name => "index_categories_on_name"
+
   create_table "users", :force => true do |t|
     t.string   "email"
     t.string   "password_hash"
@@ -27,5 +29,7 @@ ActiveRecord::Schema.define(:version => 20150509135914) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email"
 
 end

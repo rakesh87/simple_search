@@ -7,9 +7,9 @@ class User < ActiveRecord::Base
 
   before_save :encrypt_user_password
 
-  validates_presence_of :email
-  validates_presence_of :password, on: :create
-  validates_confirmation_of :password, on: :create
+  validates :email, presence: true, uniqueness: true, on: :create
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
+  validates :password, presence: true, confirmation: true, length: { in: 3..20 }, on: :create
 
   def self.authenticate_for(email, password)
     user = where(email: email).first
