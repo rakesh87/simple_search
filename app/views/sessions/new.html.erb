@@ -1,0 +1,17 @@
+<div class="container-fluid mt-110">
+  <h1>Log-In</h1>
+
+  <%= form_tag sessions_url do %>
+    <div class="form-group">
+      <%= label_tag :email %> :
+      <%= text_field_tag :email, nil, class: 'form-control', required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :password %> :
+      <%= password_field_tag :password, nil, class: 'form-control', required: true %>
+    </div>
+
+    <%= submit_tag 'Log-In', class: 'btn btn-primary', id: 'logIn'%>
+  <% end %>
+</div>

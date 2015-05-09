@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SimpleSearch</title>
+  <%= stylesheet_link_tag    'application', media: 'all'%>
+  <%= javascript_include_tag 'application'%>
+  <%= javascript_include_tag 'jquery'%>
+  <%= javascript_include_tag 'jquery_ujs'%>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <div class="navbar navbar-inverse navbar-fixed-top">
+
+    <div class="container-fluid">
+
+      <div class="navbar-header">
+        <%= link_to 'Home', root_path, class: 'navbar-brand' %>
+      </div>
+
+      <ul class="nav navbar-nav">
+        <% if current_user %>
+          <li><%= link_to 'Log-Out', log_out_url %></li>
+        <% else %>
+          <li><%= link_to 'Sign-Up', sign_up_url %></li>
+          <li><%= link_to 'Login', log_in_url %></li>
+        <% end %>
+      </ul>
+
+    </div>
+
+    <div class="container-fluid" style="background-color: whitesmoke;">
+      <div class='row alertdiv'>
+        <% flash.each do |key, value| %>
+          <div>
+            <%= value %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+
+  <%= yield %>
+</body>
+</html>

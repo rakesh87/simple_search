@@ -1,0 +1,24 @@
+<table class="table table-responsive">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Reach Count</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @categories.each_with_index do |category, index| %>
+        <tr>
+          <th scope="row"><%= index+1 %></th>
+          <td><%= link_to category.name, category %></td>
+          <td><%= category.reach_count %></td>
+          <td><%= link_to 'new category', new_category_url %></td>
+          <td><%= link_to 'edit', edit_category_url(category) %></td>
+          <td><%= link_to 'destroy', category, method: :delete, data: { confirm: 'are u sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+</table>

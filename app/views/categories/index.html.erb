@@ -1,0 +1,39 @@
+<div class="container-fluid" style="margin-bottom: 20px; margin-top: 70px;">
+  <% if current_user %>
+    <div class="row">
+      <div class="col-sm-12">
+        <%= form_tag categories_path, id: "category_search_form", method: 'GET', remote: true, class: "navbar-form navbar-left", role: "search" do %>
+          <div class="form-group">
+            <%= text_field_tag "category_search", params[:category_search], class: "form-control", placeholder: "Search Categories", data: {autocomplete_source: autofill_data_categories_url} %>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          </button>
+        <% end %>
+      </div>
+    </div>
+    <div id="categories">
+      <%= render 'categories' %>
+    </div>
+
+  <% end %>
+</div>
+
+<style>
+  .ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .ui-helper-hidden-accessible { display:none; }
+  .ui-menu
+  {
+      display: block;
+      float: left;
+      list-style: none outside none;
+      margin: 0;
+      padding: 2px;
+  }
+</style>
+<%= javascript_include_tag 'categories'%>
